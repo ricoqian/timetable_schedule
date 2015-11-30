@@ -32,38 +32,39 @@ if USER:
             c = c.strip()
             if c in courses:
                 error = 1
-                s = 'Sorry, your course code \'{}\' is already exist.\n'.format(c)
+                s = "Sorry, your course code '{}' is already exist.\n".format(c)
             elif len(c)==7 and c[:3].isalpha() and c[3:6].isdigit() and c[-1] in ['s', 'y', 'f']:            
                 i += 1
                 error = 0
                 courses.append(c)
             else:
                 error = 1
-                s = 'Sorry, your course code \'{}\' format is incorrect \n'
+                s = "Sorry, your course code '{}' format is incorrect \n"
                 
             print('\ncourses input: {}/{}'.format(i,num))
     
         print('\nWaiting for the result...  :)\n')
+        break
 else:
     courses = ['mat235y', "imc200f", 'csc418s', 'Csc324f', 'csc488s', 'csc420f', 'APM236s', 'env200s', 'csc384F', 'csc486s'] 
     # prase course information
-    info = courseinfoGrab(courses, DEBUG)
-    if type(info)==str:
-        print('Sorry! There is no {} in {} term.'.format(info[:-1].upper(), info[-1].upper()))
-    else:
-        
-        # get useful part of information from info
-        classes = getInfo(courses, info)
-        
-        # get scheduling
-        result = classScheduling(classes)
-        
-        # visualize result in fall and winter timetable
-        if VIS:
-            headers, tables, btm = visualTable(result, classes)     
-            print('Fall Timetable:\n')
-            print(tabulate(tables[0], headers[0], tablefmt="fancy_grid"))
-            print('Winter Timetable:\n')
-            print(tabulate(tables[1], headers[1], tablefmt="fancy_grid"))        
-            print(btm)
-    sys.exit('Finished! \nThanks for using my class timetable schedule program! \nHave a Nice day!\n')
+info = courseinfoGrab(courses, DEBUG)
+if type(info)==str:
+    print('Sorry! There is no {} in {} term.'.format(info[:-1].upper(), info[-1].upper()))
+else:
+    
+    # get useful part of information from info
+    classes = getInfo(courses, info)
+    
+    # get scheduling
+    result = classScheduling(classes)
+    
+    # visualize result in fall and winter timetable
+    if VIS:
+        headers, tables, btm = visualTable(result, classes)     
+        print('Fall Timetable:\n')
+        print(tabulate(tables[0], headers[0], tablefmt="fancy_grid"))
+        print('Winter Timetable:\n')
+        print(tabulate(tables[1], headers[1], tablefmt="fancy_grid"))        
+        print(btm)
+sys.exit('Finished! \nThanks for using my class timetable schedule program! \nHave a Nice day!\n')
