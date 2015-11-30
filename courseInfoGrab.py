@@ -1,7 +1,7 @@
 import urllib.request
 from bs4 import BeautifulSoup
 
-# parser return a dictionary info[course] = list of course information i.e. 
+# parser return a dictionary info[course] = list of list of course information i.e. 
 # [course_name, term, title, session, waitinglist, time, etc.] only need 
 # course_name, term, session and time for this program
 def courseinfoGrab(courses, debug=0):

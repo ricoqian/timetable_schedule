@@ -4,6 +4,7 @@ from visualTable import *
 from tabulate import tabulate
 from itertools import product
 import sys
+import time
 
 DEBUG = 0
 USER = 0
@@ -46,25 +47,32 @@ if USER:
         print('\nWaiting for the result...  :)\n')
         break
 else:
-    courses = ['mat235y', "imc200f", 'csc418s', 'Csc324f', 'csc488s', 'csc420f', 'APM236s', 'env200s', 'csc384F', 'csc486s'] 
-    # prase course information
+    courses = ['mat235y', "imc200f", 'csc418s', 'Csc324f', 'csc488s', 'csc420f', 'APM236s', 'env200s', 'csc384F', 'csc486s', 'sta248s'] 
+
+# prase course information
+stime1 = time.process_time()
 info = courseinfoGrab(courses, DEBUG)
 if type(info)==str:
+    print("\ntime for parsing: {}\n".format(time.process_time()-stime1))
     print('Sorry! There is no {} in {} term.'.format(info[:-1].upper(), info[-1].upper()))
 else:
-    
+    print("\ntime for parsing: {}\n".format(time.process_time()-stime1))
+    stime = time.process_time()
     # get useful part of information from info
     classes = getInfo(courses, info)
     
     # get scheduling
     result = classScheduling(classes)
-    
+    print("\ntime for csp: {}\n".format(time.process_time()-stime))
     # visualize result in fall and winter timetable
     if VIS:
-        headers, tables, btm = visualTable(result, classes)     
-        print('Fall Timetable:\n')
-        print(tabulate(tables[0], headers[0], tablefmt="fancy_grid"))
-        print('Winter Timetable:\n')
-        print(tabulate(tables[1], headers[1], tablefmt="fancy_grid"))        
-        print(btm)
+        if None not in result.values():
+            headers, tables, btm = visualTable(result, classes)     
+            print('Fall Timetable:\n')
+            print(tabulate(tables[0], headers[0], tablefmt="fancy_grid"))
+            print('Winter Timetable:\n')
+            print(tabulate(tables[1], headers[1], tablefmt="fancy_grid"))        
+            print(btm)
+        else:
+            print('No possible arrangement of courses!\n')
 sys.exit('Finished! \nThanks for using my class timetable schedule program! \nHave a Nice day!\n')
