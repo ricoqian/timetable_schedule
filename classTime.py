@@ -1,6 +1,7 @@
 from cspbase import *
 from propagators import *
 
+# Class for course
 class Class:
     # name -> string, sessions -> [string], tp = 'l' or 't', classTimeList -> {string: [classTime]}
     def __init__(self, name, term, tp, sessions=[]):
@@ -27,7 +28,7 @@ class Class:
     def __str__(self):
         return self.name + self.tp + '( ' + self.term + ' ): ' + str(self.classTimes)
     
-
+# return non overlap sessions of two courses, [] if there are always conflict
 def notOverlap(self, other):
     result = []
     for s1 in self.classTimes:
@@ -36,6 +37,7 @@ def notOverlap(self, other):
                 result.append([s1, s2])
     return result
 
+# check if two sessions are overlap
 def sessionOverlap(s1, s2):
     for t1 in s1:
         for t2 in s2:
@@ -43,6 +45,7 @@ def sessionOverlap(s1, s2):
                 return True
     return False
 
+# excute prop_GAC and get the result
 def classScheduling(classes):
     allclasses = []
     for c in classes:
@@ -68,7 +71,7 @@ def classScheduling(classes):
     #solver.trace_on()
     return solver.bt_search(prop_GAC)
 
-
+# one time slot
 class classTime:
     # weekday = 'M' or 'T' or 'W' or 'R' or 'F', term = 'S' or 'F' or 'Y', startTime, finishTime -> 0 < x < 24
     def __init__(self, weekday, startTime, finishTime=0):
@@ -91,7 +94,7 @@ class classTime:
     def __repr__(self):
         return 'classTime({}, {}, {})'.format(self.weekday, self.startTime, self.finishTime)
     
-
+# check if two time slots (classTime) are overlap each other
 def isOverlap(self, other):
     return (self.term == other.term or self.term == 'Y' or other.term == 'Y') and self.weekday == other.weekday and ( \
         (self.startTime > other.startTime and self.startTime < other.finishTime) or \

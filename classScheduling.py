@@ -41,6 +41,8 @@ while True:
         print('\ncourses input: {}/{}'.format(i,num))
 
     print('\nWaiting for the result...  :)\n')
+    
+    # prase course information
     info = courseinfo_grab(courses, DEBUG)
     if type(info)==str:
         b = input('Sorry! There is no {} in {} term. Do you want to try again? (y/n)\n'.format(info[:-1].upper(), info[-1].upper()))
@@ -49,9 +51,14 @@ while True:
         else:
             pass
     else:
+        
+        # get useful part of information from info
         classes = getInfo(courses, info)
+        
+        # get scheduling
         result = classScheduling(classes)
         
+        # visualize result in fall and winter timetable
         tables = [[], []]
         headers = []
         headers.append(['Time', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'])
