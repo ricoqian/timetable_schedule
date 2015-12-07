@@ -7,14 +7,14 @@ import sys
 import time
 
 DEBUG = 0
-USER = 0
+USER = 1
 VIS = 1
 # have to be 3 letters + 3 int + 's' or 'f' or 'y'
 
 if USER:
     while True:
         courses = []
-        num = input('Hi, there! \nThis is an simple class timetable schedule made by Rico Qian. \nPlease input the number of courses you want to choose: \n')
+        num = input('Please input the number of courses you want to choose: \n')
         
         while True:
             num = num.strip()
@@ -40,7 +40,7 @@ if USER:
                 courses.append(c)
             else:
                 error = 1
-                s = "Sorry, your course code '{}' format is incorrect \n"
+                s = "Sorry, your course code '{}' format is incorrect \n".format(c)
                 
             print('\ncourses input: {}/{}'.format(i,num))
     
