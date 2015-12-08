@@ -14,7 +14,7 @@ VIS = 1
 if USER:
     while True:
         courses = []
-        num = input('Please input the number of courses you want to choose: \n')
+        num = input('Hi there!\nThanks for using UofT timetable scheduling made by Rico Qian.\nPlease input the number of courses you want to choose: \n')
         
         while True:
             num = num.strip()
